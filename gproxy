@@ -1,0 +1,19 @@
+#!/bin/bash
+proxy=$(./gproxy_main)
+BASHRC=`readlink -f $HOME/.bashrc`
+function set_proxy() 
+{
+    for type in "http" "https"; do
+        sed -i "/export ${type}_proxy\=/d" $BASHRC
+    done
+
+    if [ ":" == "$proxy" ]; then
+        return 
+    fi
+    
+    echo "export http_proxy=\"http://${proxy}/\"" >> $BASHRC
+    echo "export https_proxy=\"https://${proxy}/\"" >> $BASHRC
+}
+
+set_proxy
+echo "Done"
