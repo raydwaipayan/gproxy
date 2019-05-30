@@ -1,5 +1,4 @@
 #!/bin/bash
-#proxy=$(./gproxy_main)
 BASHRC=`readlink -f $HOME/.bashrc`
 proxy=""
 if [ ! -z "$1" ]; then
@@ -22,6 +21,17 @@ function set_env_proxy()
     
     echo "export http_proxy=\"http://${proxy}/\"" >> $BASHRC
     echo "export https_proxy=\"https://${proxy}/\"" >> $BASHRC
+}   
+function set_apt_proxy(){
+    apt="/etc/apt/apt.conf";
+    cat /dev/null > $apt
+    if [ "$proxy" == "" ]; then
+        return 
+    fi
+    echo "Acquire::http::Proxy \"http://${proxy}\";" >> $apt
+    echo "Acquire::https::Proxy \"https://${proxy}\";" >> $apt
 }
 [ "$3" == "1" ] && set_env_proxy
+[ "$4" == "1" ] && set_apt_proxy
+
 echo "Done"
