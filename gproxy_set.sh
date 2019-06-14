@@ -1,5 +1,6 @@
 #!/bin/bash
 BASHRC=`readlink -f $HOME/.bashrc`
+ENV="/etc/environment"
 proxy=""
 if [ ! -z "$1" ]; then
     if [ -z "$2" ]; then
@@ -9,7 +10,20 @@ if [ ! -z "$1" ]; then
     fi
 fi
 echo $proxy
-function set_env_proxy() 
+function set_env_proxy()
+{
+    for type in "http" "https"; do
+        sed -i "/${type}_proxy\=/d" $ENV
+    done
+
+    if [ "" == "$proxy" ]; then
+        return
+    fi
+
+    echo "http_proxy=\"http://${proxy}/\"" >> $ENV
+    echo "https_proxy=\"https://${proxy}/\"" >> $ENV
+}
+function set_bash_proxy() 
 {
     for type in "http" "https"; do
         sed -i "/export ${type}_proxy\=/d" $BASHRC
@@ -31,7 +45,9 @@ function set_apt_proxy(){
     echo "Acquire::http::Proxy \"http://${proxy}\";" >> $apt
     echo "Acquire::https::Proxy \"https://${proxy}\";" >> $apt
 }
+
 [ "$3" == "1" ] && set_env_proxy
-[ "$4" == "1" ] && set_apt_proxy
+[ "$4" == "1" ] && set_bash_proxy
+[ "$5" == "1" ] && set_apt_proxy
 
 echo "Done"
