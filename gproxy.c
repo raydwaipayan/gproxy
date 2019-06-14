@@ -37,7 +37,7 @@ void on_button_clicked(GtkWidget *widget, gpointer data)
     const gint cb1=gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->cb1));
     const gint cb2=gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->cb2));
     const gint cb3=gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->cb3));
-    const char* arg1[1],arg2[1],arg3[1];
+    const char* arg1[1], *arg2[1], *arg3[1];
     sprintf(arg1,"%d",cb1);
     sprintf(arg2,"%d",cb2);
     sprintf(arg3,"%d",cb3);
