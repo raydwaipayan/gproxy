@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
     if(root)
     {
       gtk_widget_set_sensitive(cb1,0);
-      gtk_widget_set_sensitive(cb2,0);
+      gtk_widget_set_sensitive(cb3,0);
       gtk_table_attach(GTK_TABLE(table), warn, 1, 2, 4, 5, 
         GTK_FILL | GTK_SHRINK, GTK_FILL | GTK_SHRINK, 5, 5);
     }
