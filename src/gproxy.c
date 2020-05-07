@@ -42,7 +42,7 @@ void on_button_clicked(GtkWidget *widget, gpointer data)
     sprintf(arg2,"%d",cb2);
     sprintf(arg3,"%d",cb3);
 
-    char* args[]={"./gproxy_set.sh",entry1,entry2,arg1,arg2,arg3,(char*)0};
+    char* args[]={"/usr/local/lib/gproxy.sh",entry1,entry2,arg1,arg2,arg3,(char*)0};
     execProcess(args);
     gtk_main_quit();
 }

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 BASHRC=`readlink -f $HOME/.bashrc`
 ENV="/etc/environment"
 proxy=""
